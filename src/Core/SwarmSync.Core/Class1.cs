@@ -12,13 +12,13 @@ public class DeviceDetector
         {
             foreach (var iface in NetworkInterface.GetAllNetworkInterfaces())
             {
-                if (iface.OperationalStatus == OperationalStatus.Up)
-                {
+//                if (iface.OperationalStatus == OperationalStatus.Up)
+  //              {
                     var props = iface.GetIPProperties();
                     var gateways = props.GatewayAddresses;
                     if (gateways.Count > 0)
                         devices.Add(iface.Name);
-                }
+    //            }
             }
         }
         catch { }

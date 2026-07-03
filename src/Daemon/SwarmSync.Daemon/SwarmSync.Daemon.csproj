@@ -2,7 +2,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\SwarmSync.Core\SwarmSync.Core.csproj" />
-    <ProjectReference Include="..\..\Shared\SwarmSync.Shared\SwarmSync.Shared.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
