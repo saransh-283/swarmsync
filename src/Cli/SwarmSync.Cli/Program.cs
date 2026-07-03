@@ -1,6 +1,11 @@
 using System.Net;
 
 var oneOff = args.Contains("--list");
+if (args.Contains("--help"))
+{
+    Console.WriteLine("Usage: SwarmSync.Cli [--list] [--help]\n--list  One-off device list\n--help  Show this help");
+    return;
+}
 
 while (true)
 {
