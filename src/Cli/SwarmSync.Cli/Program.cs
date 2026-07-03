@@ -1,7 +1,26 @@
-var client = new HttpClient();
+using System.Net;
 
-var result =
-    await client.GetStringAsync(
-        "http://localhost:5136");
+var oneOff = args.Contains("--list");
 
-Console.WriteLine(result);
+while (true)
+{
+    if (oneOff)
+    {
+        var client = new HttpClient();
+        var res = await client.GetStringAsync("http://localhost:5136/devices");
+        Console.WriteLine("Devices: " + res);
+        break;
+    }
+    else
+    {
+        Console.WriteLine("1. List devices\nq. Exit");
+        var line = Console.ReadLine();
+        if (line == "q") break;
+        if (line == "1")
+        {
+            var client = new HttpClient();
+            var res = await client.GetStringAsync("http://localhost:5136/devices");
+            Console.WriteLine("Devices: " + res);
+        }
+    }
+}
