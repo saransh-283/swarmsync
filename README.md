@@ -16,7 +16,18 @@ Recommendations for developers: do not have apps talk directly to `Core` for liv
 
 ## Setup / Build
 
-Requires .NET 9 SDK.
+### Requirements
+
+- **.NET 10 SDK** (10.0.111 or later) — see `global.json`
+- **Android-MAUI workload** (for `SwarmSync.Android`):
+  ```bash
+  dotnet workload install maui-android
+  ```
+- **JDK 21** (for Android builds) — set `JAVA_HOME`:
+  ```bash
+  export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
+  export PATH=$JAVA_HOME/bin:$PATH
+  ```
 
 ### Windows / macOS / Linux
 
@@ -35,6 +46,30 @@ dotnet run --project src/Daemon/SwarmSync.Daemon
 - `--list` — One-off device list
 - `--help` — Show usage
 dotnet run --project src/Cli/SwarmSync.Cli
+```
+
+### Android Build Notes
+
+The Android project targets `net10.0-android` and requires JDK 21. If you see `XA0030` errors, ensure `JAVA_HOME` points to JDK 21 (not JDK 26+).
+
+```bash
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
+dotnet build src/Android/SwarmSync.Android/SwarmSync.Android.csproj
+```
+
+### Android Live Preview (Hot Reload)
+
+Deploy to your connected Android device and watch for changes:
+
+```bash
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
+export PATH=$JAVA_HOME/bin:$PATH
+
+dotnet watch --project src/Android/SwarmSync.Android/SwarmSync.Android.csproj \
+  --property:AndroidDeviceSerial=<your-device-serial>
+```
+
+Find your device serial with `adb devices`. Press `Ctrl+R` in the watch terminal to restart the app. File changes are hot-reloaded automatically.
 ```
 
 ## Status
