@@ -1,8 +1,6 @@
 using Spectre.Console;
 using SwarmSync.Core;
 
-var oneOff = args.Contains("--list");
-
 if (args.Contains("--help"))
 {
     AnsiConsole.Write(new FigletText("SwarmSync").Color(new Color(0, 255, 255)));
@@ -13,10 +11,13 @@ if (args.Contains("--help"))
     return;
 }
 
+var oneOff = args.Contains("--list");
+
 var ip = DeviceDetector.GetLocalIpAddress();
 var daemonUrl = "http://localhost:5136";
-var daemonAlive = false;
+
 string? devicesJson = null;
+bool daemonAlive = false;
 
 try
 {
@@ -47,6 +48,7 @@ while (true)
     AnsiConsole.Clear();
     AnsiConsole.Write(new FigletText("SwarmSync").Color(new Color(0, 255, 255)));
     AnsiConsole.WriteLine();
+
     var panel = new Panel(
         new Table()
             .AddColumn("Property")
@@ -65,12 +67,12 @@ while (true)
     var choice = AnsiConsole.Prompt(
         new SelectionPrompt<string>()
             .Title("Select an option:")
-            .AddChoices(new[] { "Refresh", "List devices", "Exit" })
+            .AddChoices(new[] { "Refresh", "Exit" })
     );
 
     if (choice == "Exit") break;
 
-    if (choice == "Refresh" || choice == "List devices")
+    if (choice == "Refresh")
     {
         try
         {

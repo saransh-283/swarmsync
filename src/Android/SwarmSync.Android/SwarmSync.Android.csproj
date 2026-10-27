@@ -22,5 +22,8 @@
     <AndroidResource Include="Platforms/Android/Resources/values/strings.xml" />
     <AndroidResource Include="Platforms/Android/Resources/layout/activity_main.axml" />
     <AndroidResource Include="Platforms/Android/Resources/values/themes.xml" />
+    <AndroidResource Include="Platforms/Android/Resources/drawable/ic_daemon.xml" />
+    <AndroidManifest Include="Properties/AndroidManifest.xml" />
+    <ProjectReference Include="..\..\Core\SwarmSync.Core\SwarmSync.Core.csproj" />
   </ItemGroup>
 </Project>
