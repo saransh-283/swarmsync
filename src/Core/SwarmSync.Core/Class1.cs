@@ -12,18 +12,30 @@ public class DeviceDetector
         {
             foreach (var iface in NetworkInterface.GetAllNetworkInterfaces())
             {
-//                if (iface.OperationalStatus == OperationalStatus.Up)
-  //              {
-                    var props = iface.GetIPProperties();
-                    var gateways = props.GatewayAddresses;
-                    if (gateways.Count > 0)
-                        devices.Add(iface.Name);
-    //            }
+                var props = iface.GetIPProperties();
+                var gateways = props.GatewayAddresses;
+                if (gateways.Count > 0)
+                    devices.Add(iface.Name);
             }
         }
         catch { }
         if (devices.Count == 0)
             devices.Add("localhost");
         return devices;
+    }
+
+    public static string GetLocalIpAddress()
+    {
+        try
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                    return ip.ToString();
+            }
+        }
+        catch { }
+        return "127.0.0.1";
     }
 }
